@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
 import './App.css';
 import axios from 'axios';
 import apiKey from './Config';
 import SearchForm from './components/SearchForm';
 import Nav from './components/Nav';
 import Gallery from './components/Gallery';
+import NotFound from './components/NotFound';
 
-export default class App extends Component {
+
+ class App extends Component {
   
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state= {
       photos: [],
+      query: '',
       loading: true,
     };
   }
   componentDidMount(){
-    this.performSearch("robot");
+    this.performSearch();
   }
   performSearch =(query)=>{
-    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&content_type=1&per_page=24&format=json&nojsoncallback=1`)
+    axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response=>{
       this.setState({
-        photos: response.data.data,
+        photos: response.data.photos.photo,
+        query,
         loading:false
       })
     })
@@ -33,19 +37,22 @@ export default class App extends Component {
   };
   
   render(){
-    console.log(this.state.photos)
     return(
-      <div className="container">
-        <SearchForm onSearch ={this.performSearch}/>
-        <BrowserRouter>
-        <Nav/>
-        </BrowserRouter>
-        <Gallery/>
-
-        
-      </div>
-    
+      <BrowserRouter>
+        <div className="container">
+          <SearchForm onSearch ={this.performSearch} loading={this.state.loading}/>
+          <Nav/>
+          <Switch>
+            <Route exact path = "/" render ={() => <Redirect to ="/robots"/>}/>
+            <Route exact path="/search/:searchtext" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.queryContent} loading={this.state.loading} fetchData={this.search} />} />
+            <Route path="/(robots|cats|pizza)" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.queryContent} loading={this.state.loading} fetchData={this.search} />} />
+            <Route component = {NotFound} />
+          </Switch>
+          <Gallery/>
+        </div>
+      </BrowserRouter>
       
     )
   }
-}
+};
+export default App;
