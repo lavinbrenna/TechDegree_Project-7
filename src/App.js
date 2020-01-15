@@ -15,19 +15,19 @@ import NotFound from './components/NotFound';
     super(props);
     this.state= {
       photos: [],
-      query: '',
+      tags: '',
       loading: true,
     };
   }
   componentDidMount(){
-    this.performSearch();
+    this.getImages("tokyo night");
   }
-  performSearch =(query)=>{
+  getImages =(query)=>{
     axios.get(`https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=${apiKey}&tags=${query}&per_page=24&format=json&nojsoncallback=1`)
     .then(response=>{
       this.setState({
         photos: response.data.photos.photo,
-        query,
+        tags: '',
         loading:false
       })
     })
@@ -36,19 +36,20 @@ import NotFound from './components/NotFound';
     });
   };
   
+  
+  
   render(){
     return(
       <BrowserRouter>
         <div className="container">
-          <SearchForm onSearch ={this.performSearch} loading={this.state.loading}/>
+          <SearchForm onSearch ={this.getImages} loading={this.state.loading}/>
           <Nav/>
           <Switch>
-            <Route exact path = "/" render ={() => <Redirect to ="/robots"/>}/>
-            <Route exact path="/search/:searchtext" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.queryContent} loading={this.state.loading} fetchData={this.search} />} />
-            <Route path="/(robots|cats|pizza)" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.queryContent} loading={this.state.loading} fetchData={this.search} />} />
+            <Route exact path = "/" render ={() => <Redirect to ="/tokyo"/>}/>
+            <Route exact path="/search/:searchtext" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.query} loading={this.state.loading} fetchData={this.search} />} />
+            <Route path="/(tokyo|cyberspace|vaporwave)" render={ (props) => <Gallery {...props} data={this.state.photos} query={this.state.query} loading={this.state.loading} fetchData={this.search} />} />
             <Route component = {NotFound} />
           </Switch>
-          <Gallery/>
         </div>
       </BrowserRouter>
       
