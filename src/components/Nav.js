@@ -1,17 +1,24 @@
 import React from 'react';
 import {BrowserRouter, NavLink} from 'react-router-dom';
 
-const Nav = () => (
+const Nav =(props)=>  {
+
+    return(
   <BrowserRouter>
       <nav className = "main-nav">
        <ul>
-           <li><NavLink to="/robots">Robots</NavLink></li>
-           <li><NavLink to="/cats">Cats</NavLink></li>
-           <li><NavLink to="/pizza">Pizza</NavLink></li>
+           <li><NavLink exact to ='/' >Home</NavLink></li>
+           <li><NavLink to="/keithsonnier" >Keith Sonnier</NavLink></li>
+           <li><NavLink to="/jamesturrell" >James Turrell</NavLink></li>
+           <li><NavLink to="/olafureliasson" >Olafur Eliasson</NavLink></li>
+           <li><NavLink to ="/teamlab">teamLab</NavLink></li>
        </ul>   
       </nav>
   </BrowserRouter>
-)
+    
+    )
+
+}
    
 export default Nav;
 
