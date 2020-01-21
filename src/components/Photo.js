@@ -1,5 +1,7 @@
 import React from 'react';
 
+//photo component whech takes prop data passed from API calls and parses the information into a template literal which can be used to display the images on the page
+
 const Photo = props => {
 
   //Prop data

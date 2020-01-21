@@ -1,20 +1,18 @@
 import React from 'react';
-import {BrowserRouter, Link} from 'react-router-dom';
-
+import {NavLink} from 'react-router-dom';
+//creating navigation links
 const Nav =()=>  {
-
     return(
-  <BrowserRouter>
       <nav className = "main-nav">
        <ul>
-           <li><Link exact to ='/' >Home</Link></li>
-           <li><Link to="/keithsonnier" >Keith Sonnier</Link></li>
-           <li><Link to="/jamesturrell" >James Turrell</Link></li>
-           <li><Link to="/olafureliasson" >Olafur Eliasson</Link></li>
-           <li><Link to ="/teamlab">teamLab</Link></li>
+           <li><NavLink exact to ='/' >Home</NavLink></li>
+           <li><NavLink to="/keithsonnier" >Keith Sonnier</NavLink></li>
+           <li><NavLink to="/jamesturrell" >James Turrell</NavLink></li>
+           <li><NavLink to="/olafureliasson" >Olafur Eliasson</NavLink></li>
+           <li><NavLink to ="/teamlab">teamLab</NavLink></li>
        </ul>   
       </nav>
-  </BrowserRouter>
+  
     
     )
 

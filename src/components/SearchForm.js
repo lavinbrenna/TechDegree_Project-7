@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+//search bar component. It handles the change of the page based on the input within the search bar.
+
 export default class SearchForm extends Component {
     state ={
         searchText: ''
