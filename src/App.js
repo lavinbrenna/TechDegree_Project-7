@@ -109,10 +109,10 @@ render(){
 return (
 <BrowserRouter>
   <div className="container">
-    <SearchForm onSearch={ this.getImages }query={ this.state.query }/> 
+    <SearchForm onSearch={ this.getImages }/> 
     <Nav />
     <Switch>
-        <Route exact path="/"  render={ () => <Gallery data={this.state.photos} /> } />
+        <Route exact path="/"  render={ () => <Gallery data={this.state.home.photos} /> } />
         <Route path="/keithsonnier" render={ () =>  <Gallery data={this.state.keith.photos} loading= {this.state.keith.loading}/>}/>
         <Route path="/jamesturrell" render={ () => <Gallery data={this.state.james.photos} loading= {this.state.james.loading}/> } />
         <Route path="/olafureliasson" render={ () => <Gallery data={this.state.olafur.photos} loading= {this.state.olafur.loading}/> } />
